@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fullscreen iPhone / PWA -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Credencial">
@@ -12,38 +14,31 @@
 
   <style>
     :root{
-      /* Ajusta este naranja hasta que sea idéntico a tu captura */
-      --ul-orange: #F37C20; /* prueba #F47B20 si lo ves más igual */
+      --ul-orange: #F37C20;
       --ul-gray: #8A8A8A;
     }
 
-    /* Si tienes la fuente REAL, pon el archivo en la carpeta y descomenta esto:
-    @font-face{
-      font-family: "ULFont";
-      src: url("./ULFont.woff2") format("woff2");
-      font-weight: 100 900;
-      font-style: normal;
-    }
-    */
-
-    html, body { height: 100%; }
-    body{
+    html, body{
+      width: 100%;
+      height: 100%;
       margin:0;
-      background:#f5f5f5;
+      padding:0;
+      overflow:hidden;
+      background:#fff;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: geometricPrecision;
     }
 
     .card{
-      max-width: 420px;
-      margin: 20px auto;
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      margin: 0;
       background:#fff;
-      border-radius: 24px;
+      border-radius: 0;
       overflow:hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,.10);
       position:relative;
-      height: 860px;
     }
 
     /* ===== Franja horizontal movible ===== */
@@ -51,7 +46,7 @@
       position:absolute;
       left:0;
       width:100%;
-      height:18px;                 /* grosor */
+      height:18px;
       background: var(--ul-orange);
       top:110px;
       z-index:1;
@@ -65,37 +60,23 @@
       z-index:2;
     }
 
-    /* Si vas a poner el logo real, reemplaza el div por <img> */
-    .logo{
-      width:100px;
-      height:100px;
+    .logoImg{
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      display:block;
       margin: 0 auto 8px;
-      background: var(--ul-orange);
-      clip-path: polygon(50% 0%, 62% 18%, 82% 18%, 68% 32%, 74% 52%, 50% 40%, 26% 52%, 32% 32%, 18% 18%, 38% 18%);
-      opacity: .95;
-    }
-
-    .uni{
-      /* Fuente corporativa si la tuvieras: font-family: "ULFont", ... */
-      font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      font-size: 13px;
-      color: var(--ul-gray);
-      line-height: 1.15;
-      text-transform: uppercase;
-      margin-bottom: 10px;
     }
 
     /* ===== Nombre / Código ===== */
     .name{
       font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 100;            /* grosor */
-      letter-spacing: 0.05em;      /* espaciado como en tu muestra */
+      font-weight: 100;
+      letter-spacing: 0.05em;
       color: var(--ul-orange);
       text-transform: uppercase;
       text-align:center;
-      margin-top: 52px;            /* separa del header como en la captura */
+      margin-top: 52px;
       line-height: 1.12;
       font-size: 25px;
       position:relative;
@@ -119,10 +100,11 @@
     .photoWrap{
       display:flex;
       justify-content:center;
-      margin-top: 90px;            /* para que quede centrado como tu captura */
+      margin-top: 90px;
       position:relative;
       z-index:2;
     }
+
     .photo{
       width: 210px;
       height: 260px;
@@ -145,23 +127,15 @@
       z-index:2;
     }
 
-    .barcode{
+    .barcodeImg{
+      width: calc(100% - 64px);
       height: 92px;
-      margin: 22px 32px 0;
-      border-radius: 6px;
-      background: repeating-linear-gradient(90deg, #000 0 6px, #fff 6px 10px);
+      object-fit: contain;
+      display:block;
+      margin: 22px auto 0;
       position:relative;
       z-index:2;
     }
-
-    .logoImg{
-        width: 100px;
-        height: 100px;
-        object-fit: contain;
-        display:block;
-        margin: 0 auto 8px;
-        }
-
   </style>
 </head>
 
@@ -185,7 +159,6 @@
   </div>
 
   <script>
-    /* EDITA AQUÍ */
     const DATA = {
       nombreLinea1: "BLANCO RODRIGUEZ",
       nombreLinea2: "ALESSANDRO DAVID",
@@ -224,6 +197,7 @@
       stripe.style.top = `${y}px`;
       requestAnimationFrame(tick);
     }
+
     requestAnimationFrame(tick);
   </script>
 </body>
